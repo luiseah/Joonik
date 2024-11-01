@@ -2,49 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreLocationRequest;
-use App\Http\Requests\UpdateLocationRequest;
 use App\Models\Location;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\JsonResponse;
 
 class LocationController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     *
+     * @throws AuthorizationException
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        dd(\Auth::guard()->user());
-    }
+        $locations = Location::all();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreLocationRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Location $location)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateLocationRequest $request, Location $location)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Location $location)
-    {
-        //
+        return \Response::api($locations);
     }
 }

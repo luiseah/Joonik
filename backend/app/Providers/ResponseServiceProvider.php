@@ -28,7 +28,7 @@ class ResponseServiceProvider extends ServiceProvider
                 ...$attributes,
                 'message' => $message,
                 'status' => 'success',
-                ...$extra
+                ...$extra,
             ], $status);
         });
 
@@ -36,7 +36,7 @@ class ResponseServiceProvider extends ServiceProvider
             return \Response::json([
                 'message' => $message,
                 'status' => 'success',
-                ...$extra
+                ...$extra,
             ], $status);
         });
 
@@ -44,7 +44,7 @@ class ResponseServiceProvider extends ServiceProvider
             return \Response::json([
                 'message' => $message,
                 'status' => 'success',
-                ...$extra
+                ...$extra,
             ], $status);
         });
     }

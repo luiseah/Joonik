@@ -1,0 +1,8 @@
+{
+  "preset": "laravel",
+  "rules": {
+    "not_operator_with_successor_space": false,
+    "no_superfluous_phpdoc_tags": false,
+    "new_with_braces": true
+  }
+}
