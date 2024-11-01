@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\IndexLocationRequest;
 use App\Models\Location;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
@@ -15,9 +16,9 @@ class LocationController extends Controller
      *
      * @throws AuthorizationException
      */
-    public function index(): JsonResponse
+    public function index(IndexLocationRequest $request): JsonResponse
     {
-        $locations = Location::all();
+        $locations = Location::applyFilters($request)->get();
 
         return \Response::api($locations);
     }

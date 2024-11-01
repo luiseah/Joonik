@@ -22,6 +22,12 @@ class DatabaseSeeder extends Seeder
             'api_key' => 'secret',
         ]);
 
+        $token = $user->tokens()->create([
+            'name' => 'default',
+            'token' =>'secret',
+            'abilities' => ['*'],
+        ]);
+
         Location::factory(5)
             ->for($user)
             ->create([

@@ -10,6 +10,8 @@ class LocationBuilder extends Builder
 {
 
     /**
+     * Sorts the results according to the given parameter
+     *
      * @return $this
      */
     public function orderBys(Request $request)
@@ -32,6 +34,8 @@ class LocationBuilder extends Builder
     }
 
     /**
+     * Apply filters.
+     *
      * @param Request $request
      *
      * @return $this
