@@ -10,10 +10,12 @@ RUN npm install
 # Copy app source code
 COPY . .
 
+COPY .env.example .env
+
 # Build the app
 #RUN npm run build
 
 # Expose port
-EXPOSE 80
+EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]

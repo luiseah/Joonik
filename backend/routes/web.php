@@ -9,4 +9,3 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return Redirect::away(env('SPA_URL'));
 })->name('login');
-

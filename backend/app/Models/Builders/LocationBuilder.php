@@ -3,26 +3,14 @@
 namespace App\Models\Builders;
 
 use Illuminate\Http\Request;
-
-class UserBuilder extends Builder
+/**
+ * @extends Builder<\App\Models\Location>
+ */
+class LocationBuilder extends Builder
 {
-    /**
-     * @param $input
-     * @method search($input)
-     *
-     * @return $this
-     */
-    public function s($input)
-    {
-        $this->where(fn($q) => $q
-            ->orWhereRaw('s(name) LIKE s(?)', [s($input)])
-            ->orWhereRaw('s(email) LIKE s(?)', [s($input)]));
-
-        return $this;
-    }
 
     /**
-     * @param Request $request
+     * Sorts the results according to the given parameter
      *
      * @return $this
      */
@@ -32,11 +20,13 @@ class UserBuilder extends Builder
             'created_at' => 'desc',
         ]);
 
+        /** @var array<string, string> $orders */
         foreach ($orders as $name => $value) {
             match ($name) {
                 'name' => $this->orderBy(\DB::raw('lower(name)'), $value),
                 'created_at' => $this->orderBy('created_at', $value),
                 'updated_at' => $this->orderBy('updated_at', $value),
+                default => null,
             };
         }
 
@@ -44,16 +34,14 @@ class UserBuilder extends Builder
     }
 
     /**
+     * Apply filters.
+     *
      * @param Request $request
      *
      * @return $this
      */
     public function applyFilters(Request $request)
     {
-        if ($request->has('s')) {
-            $this->s($request->str('s'));
-        }
-
         $this->orderBys($request);
 
         return $this;

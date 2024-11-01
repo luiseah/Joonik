@@ -1,0 +1,11 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method App\\\\Models\\\\Location\\:\\:user\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo\\<App\\\\Models\\\\User, App\\\\Models\\\\Location\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\BelongsTo\\<App\\\\Models\\\\User, \\$this\\(App\\\\Models\\\\Location\\)\\>\\.$#"
+			count: 1
+			path: app/Models/Location.php
+
+		-
+			message: "#^Method App\\\\Models\\\\User\\:\\:locations\\(\\) should return Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Location, App\\\\Models\\\\User\\> but returns Illuminate\\\\Database\\\\Eloquent\\\\Relations\\\\HasMany\\<App\\\\Models\\\\Location, \\$this\\(App\\\\Models\\\\User\\)\\>\\.$#"
+			count: 1
+			path: app/Models/User.php

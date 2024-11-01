@@ -15,8 +15,9 @@ class AuthenticationException extends \Illuminate\Auth\AuthenticationException i
     {
         return response(
             [
-                "error" => "No autenticado",
-                "message" => "Debe estar autenticado para acceder a este recurso.."
+                'message' => __('They must be authenticated to access this resource.'),
+                'error' => __('Unauthenticated'),
+                'status' => __('error'),
             ],
             401
         );

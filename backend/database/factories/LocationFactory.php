@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,8 +18,9 @@ class LocationFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->company,
-            'url' => fake()->url
+            'name' => fake()->address,
+            'image' => fake()->imageUrl,
+            'user_id' => User::factory(),
         ];
     }
 }

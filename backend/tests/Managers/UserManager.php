@@ -3,19 +3,17 @@
 namespace Tests\Managers;
 
 use App\Models\User;
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Support\Collection;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Collection;
 
 trait UserManager
 {
     /**
      * Create a new user.
      *
-     * @param array $attributes
-     * @return \Illuminate\Database\Eloquent\Model|Authenticatable|HasApiTokens
+     * @param  array<string, mixed>  $attributes
+     * @return User
      */
-    public function createUser(array $attributes = [])
+    public function createUser(array $attributes = []): User
     {
         return User::factory()
             ->createOne($attributes);
@@ -24,17 +22,17 @@ trait UserManager
     /**
      * Create a new user.
      *
-     * @param array $array
-     * @param int $count
-     * @return mixed
+     * @param  mixed  $array
+     * @param  int  $count
+     * @return Collection<int, User>
      */
-    public function createManyUsers(array $array = [], int $count = 10)
+    public function createManyUsers(mixed $array = [], int $count = 10): Collection
     {
-        $has = fn($index) => array_is_list($array) && !empty($array)
+        $has = fn ($index) => is_array($array) && array_is_list($array) && !empty($array)
             ? $array[$index]
             : $array ?? [];
 
         return Collection::make(array_fill(0, $count, null))
-            ->map(fn($value, $index) => $this->createUser($has($index)));
+            ->map(fn ($value, $index) => $this->createUser($has($index)));
     }
 }

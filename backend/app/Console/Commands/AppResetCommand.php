@@ -23,7 +23,7 @@ class AppResetCommand extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $this->info('Run Refreshing Database (migrate:fresh).');
 
@@ -32,7 +32,5 @@ class AppResetCommand extends Command
         $this->info('Execute seeds');
 
         \Artisan::call('db:seed');
-
-        return Command::SUCCESS;
     }
 }

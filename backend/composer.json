@@ -28,10 +28,7 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        },
-        "files": [
-            "app/helpers.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
@@ -39,6 +36,7 @@
         }
     },
     "scripts": {
+
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
@@ -57,13 +55,16 @@
         "seed": [
             "@php artisan app:init"
         ],
-        "data": [
-            "@php artisan app:data-reset"
-        ],
         "generate": [
             "@php artisan ide-helper:generate -W",
             "@php artisan ide-helper:meta",
             "@php artisan ide-helper:models -W -R"
+        ],
+        "lint": [
+            "./vendor/bin/phpcs",
+            "./vendor/bin/phpcbf",
+            "./vendor/bin/pint",
+            "./vendor/bin/phpstan analyse --generate-baseline"
         ]
     },
     "extra": {

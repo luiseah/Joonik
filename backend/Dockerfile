@@ -40,6 +40,8 @@ COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
 # Copy the Laravel application to the container
 COPY . /var/www
 
+COPY .env.example /var/www/.env
+
 # Change permissions for storage and cache directories
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 RUN chmod 777 -R /var/www/storage/logs /var/www/storage/framework
