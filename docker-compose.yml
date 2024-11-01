@@ -1,0 +1,86 @@
+services:
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    restart: unless-stopped
+    depends_on:
+      - db
+      - cache
+    links:
+      - db
+    volumes:
+      - ./backend:/var/www
+    networks:
+      - app
+
+  frontend:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    container_name: frontend
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - app
+
+  webserver:
+    image: nginx:alpine
+    restart: unless-stopped
+    container_name: webserver
+    ports:
+      - 80:80
+    volumes:
+      - .docker/nginx:/etc/nginx/conf.d
+      - ./backend:/var/www
+    external_links:
+      - "nginx:backend.local"
+      - "nginx:frontend.local"
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - app
+
+  db:
+    build:
+      context: .docker/pgsql
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    container_name: db
+    environment:
+      POSTGRES_DB: app
+      POSTGRES_USER: default
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - app
+
+  cache:
+    image: redis:alpine
+    container_name: cache
+    restart: unless-stopped
+    ports:
+      - 6379:6379
+    volumes:
+      - redis:/data
+    networks:
+      - app
+
+networks:
+  app:
+    driver: bridge
+
+volumes:
+  redis:
+  db-data:
+    driver: local
